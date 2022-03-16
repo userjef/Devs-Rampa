@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style_imc.css">
+
+
+    <body>
+
+
+        <h1>CALCÚLO DE IMC(Indice de Massa Corporal)</h1>
+
+        <h2>Insira seu Nome</h2>
+        <label for="nome">NOME</label>
+        <input type="text" id="nome">
+        <h2>Insira seu Peso</h2>
+        <label for="peso"></label> PESO</label>
+        <input type="number" id="peso">
+        <h2>Insira sua Altura</h2>
+        <label for="altura">ALTURA</label>
+        <input type="number" id="altura">
+
+        <table class="tabela">
+            <tr>
+                <th>OPERAÇÃO</th>
+                <th>NOME</th>
+                <th>PESO</th>
+                <th>ALTURA</th>
+                <th>IMC</th>
+                <th>SITUAÇÂO</th>
+            </tr>
+            <tr>
+                <td>CÁLCULO</td>
+                <td class="nome"></td>
+                <td class="peso"></td>
+                <td class="altura"></td>
+                <td class="Imc"></td>
+                <td class="resultado"></td>
+            </tr>
+
+        </table>
+        <label for="botao">
+    <button class="bt" onclick="adicionaDados(nome.value, peso.value, altura.value)">CALCULAR</button>
+    <button onClick="window.location.href=window.location.href" type="submit">LIMPAR</button>
+</label>
+        <footer>
+            <b>
+        <a href="index.html">VOLTAR AO MENU</a>
+    </b>
+        </footer>
+        <script>
+            function limpar() {
+                document.getElementById("nome").value = '';
+                document.getElementById("peso").value = '';
+                document.getElementById("altura").value = '';
+            }
+            document.getElementById("nome", ).focus();
+
+            function adicionaDados(nome, peso, altura) {
+                calculos(nome, peso, altura)
+                limpar();
+            }
+
+            function calculos(nome, peso, altura) {
+
+                var nome;
+                var peso;
+                var altura;
+                var imc = parseInt(peso / (altura * altura)).toFixed(2);
+
+                if (imc < 18.5) {
+                    var resultado = "MAGREZA"
+                } else if (imc >= 18.5 & imc <= 24.9) {
+                    var resultado = "PESO IDEAL"
+                } else if (imc >= 24.9 & imc <= 30) {
+                    var resultado = "SOBREPESO"
+                } else if (imc > 30) {
+                    var resultado = "OBESIDADE"
+                }
+                inserirTabela(nome, peso, altura, imc, resultado)
+            }
+
+            function inserirTabela(nome, peso, altura, imc, resultado) {
+                document.querySelector(".nome").innerHTML = nome;
+                document.querySelector(".peso").innerHTML = peso + "Kg";
+                document.querySelector(".altura").innerHTML = altura + "Metros";
+                document.querySelector(".Imc").innerHTML = imc + "Kg/m2";
+                document.querySelector(".resultado").innerHTML = resultado;
+
+            }
+        </script>
+    </body>
+
+</html>

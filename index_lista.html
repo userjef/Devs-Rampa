@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style_lista.css">
+</head>
+<h1>
+    LISTA DE COMPRAS.
+</h1>
+<div id="entrada">
+    <label for="descricao">Descrição/Produto *</label >
+    <input type="text" id="descricao" name="descricao" required>
+    <label for="quantidade" >Quantidade *</label >
+    <input type="number" id="quantidade" name="quantidade" >
+    <label for="valor" >Valor *</label>
+    <input type="number" id="valor" name="valor">
+    <button class="bt" onclick="listaTabela(descricao.value, quantidade.value, valor.value,)">ADICIONAR ITEM</button>
+    <button class="bt" onclick="deletar()">REMOVER ITEM</button>
+</div>
+
+<body>
+    <div id="total">
+        <table id="total">
+            <th>TOTAL</th>
+            <td class="total"></td>
+        </table>
+
+
+    </div>
+
+
+    <table id="tb">
+        <thead>
+            <tr>
+                <th>CÓDIGO</th>
+                <th>DESCRIÇÂO/PRODUTO</th>
+                <th>QUANTIDADE</th>
+                <th>VALOR UNID.</th>
+                <th>VALOR SOMA</th>
+                <th>ITEM</th>
+
+            </tr>
+        </thead>
+    </table>
+</body>
+<footer>
+    <b>
+<a href="index.html">VOLTAR AO MENU</a>
+</b>
+</footer>
+<script>
+    total = new Array();
+    var Tcodigo = 0;
+    document.getElementById("descricao").focus();
+
+
+    function limpar() {
+        document.getElementById("descricao").focus();
+        document.getElementById("descricao").value = '';
+        document.getElementById("quantidade").value = '';
+        document.getElementById("valor").value = '';
+
+    }
+
+
+
+    function listaTabela(descricao, quantidade, valor, vsoma) {
+
+
+        if (descricao == '' || quantidade == '' || valor == '') {
+            alert('Obrigatório preenchimento do campo')
+            limpar()
+        } else {
+            limpar()
+            Tcodigo += 1;
+            var tb = document.getElementById('tb')
+            var qlinha = tb.rows.length;
+            var item = tb.rows.length;
+            var linha = tb.insertRow(qlinha, item); /*codigo/item*/
+            var vsoma = quantidade * valor;
+            total.push(vsoma);
+
+            var celcodigo = linha.insertCell(0);
+            var celdescricao = linha.insertCell(1);
+            var celquantidade = linha.insertCell(2);
+            var celvalor = linha.insertCell(3);
+            var celsoma = linha.insertCell(4);
+            var celitem = linha.insertCell(5);
+
+
+
+            celcodigo.innerHTML = Tcodigo;
+            celdescricao.innerHTML = descricao;
+            celquantidade.innerHTML = quantidade;
+            celvalor.innerHTML = 'R$:' + parseFloat(valor).toFixed(2);
+            celsoma.innerHTML = 'R$:' + parseFloat(vsoma).toFixed(2);
+            celitem.innerHTML = item
+
+
+        }
+        totalizador(vsoma, total, qlinha, item);
+    }
+
+
+
+
+    function totalizador(vsoma, total, qlinha, item) {
+
+        var novototal = 0
+        for (let x of total) {
+            Number(novototal = novototal + x)
+        }
+
+        document.querySelector(".total").innerHTML = "R$" + parseFloat(novototal).toFixed(2);
+        document.getElementById("descricao").focus();
+
+    }
+
+    function deletar(qlinha, descricao, quantidade, valor, vsoma, item) {
+
+        var delinha = prompt("EXCLUIR O ITEM: ");
+        if (delinha == '' || delinha == 0) {
+            alert('Preencher campo corretamente:\n Entre com uma opção válida.')
+            limpar()
+        } else {
+            document.getElementById('tb').deleteRow(delinha)
+
+            total.splice(delinha - 1, delinha - 1)
+            if (delinha == 1) {
+                total.splice(0, 1)
+            }
+            totalizador(vsoma, total, qlinha, item)
+            ajusteItem(qlinha, item);
+        }
+    }
+
+
+    function ajusteItem(qlinhq, item) {
+        var trs = document.getElementsByTagName('tr')
+        for (let i = 2; i < trs.length; i++) {
+            trs[i].children[5].innerHTML = i - 1
+
+
+        }
+
+    }
+</script>
+
+</html>

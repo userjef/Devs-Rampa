@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style_agenda.css">
+</head>
+
+<body>
+    <h1>AGENDA DE COMPROMISSOS</h1>
+    <div id="entra">
+        <label for="compromisso">COMPROMISSO:</label>
+        <input type="text" id="compromisso" name="compromisso" required>
+        <label for="data">DATA:</label>
+        <input type="date" id="data" name="data" required>
+        <label for="hora">HORA:</label>
+        <input type="time" id="hora" name="hora" required>
+    </div>
+
+    <div id="botao">
+        <button class="botao" id="inserir" onclick=adiciona(compromisso.value,data.value,hora.value)>ADICIONAR</button>
+        <button class="botão" id="deletar" onclick=deletar()>DELETAR</button>
+    </div>
+    <table>
+        <div id="total">
+            <th>N° de Compromissos</th>
+            <td class="nm"></td>
+        </div>
+    </table>
+    <div id="tbl">
+        </table>
+        <table id="tb">
+            <thead>
+                <tr>
+                    <th>COMPROMISSO</th>
+                    <th>DATA: Ano/Mês/Dia</th>
+                    <th>HORA</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <footer>
+        <b>
+        <a href="index.html">VOLTAR AO MENU</a>
+    </b>
+    </footer>
+    <script>
+        document.getElementById("compromisso").focus();
+        var Nordem = 0
+        var comps = [];
+
+        function limpar() {
+            document.getElementById("compromisso").focus();
+            document.getElementById("compromisso").value = '';
+            document.getElementById("data").value = '';
+            document.getElementById("hora").value = '';
+
+        }
+
+        function adiciona(compromisso, data, hora) {
+            Nordem += 1;
+
+            limpar()
+
+            var tb = document.getElementById('tb');
+            var Nordem = tb.rows.length;
+            var linha = tb.insertRow(Nordem); /*contador para +*/
+
+            comps.push([data, hora, compromisso]);
+            console.log(comps)
+            var celcomp = linha.insertCell(0);
+            var celdata = linha.insertCell(1);
+            var celhora = linha.insertCell(2);
+
+            console.log(Nordem)
+
+            celcomp.innerHTML = compromisso;
+            celdata.innerHTML = data;
+            celhora.innerHTML = hora;
+            totalizador(Nordem)
+        }
+
+        function totalizador(Nordem) {
+            document.querySelector(".nm").innerHTML = Nordem;
+            document.getElementById("compromisso").focus();
+            console.log(Nordem)
+            agenda(compromisso, data, hora)
+        }
+
+        function deletar() {
+
+            var delinha = prompt("EXCLUIR O ITEM: ");
+            document.getElementById('tb').deleteRow(delinha)
+            console.log(delinha)
+            if (delinha == 1) {
+                comps.splice(0, 1)
+            } else {
+                comps.splice(delinha - 1, delinha - 1)
+            }
+            novototal()
+        }
+
+
+        function novototal() {
+            var trs = document.getElementsByTagName('tr')
+            document.getElementById("compromisso").focus();
+            for (let i = 1; i < trs.length; i++) {
+                trs[i] = i - 1
+                document.querySelector('.nm').innerHTML = i - 1
+            }
+
+            agenda(compromisso, data, hora, )
+        }
+
+        function agenda(compromisso, data, hora, ) {
+            var tr = document.getElementsByTagName('tr')
+
+            console.log(tr)
+            comps.sort(function(a, b) {
+                if (a[0] > b[0]) {
+                    return 1
+                }
+                if (b[0] > a[0]) {
+                    return -1
+                }
+            })
+            console.log(comps)
+            for (let i = 2; i < tr.length; i++) {
+                tr[i].children[0].innerHTML = comps[i - 2][2]
+                tr[i].children[1].innerHTML = comps[i - 2][0]
+                tr[i].children[2].innerHTML = comps[i - 2][1]
+            }
+            limpar()
+        }
+    </script>
+</body>
+
+</html>

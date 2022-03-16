@@ -1,0 +1,49 @@
+        body {
+            background-color: rgba(16, 12, 12, 0.193);
+        }
+        
+        #entra {
+            display: inline;
+            text-align: justify;
+            margin-left: 330px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        #compromisso {
+            cursor: pointer;
+            border: solid;
+            max-width: 400%;
+        }
+        
+        #hora {
+            cursor: pointer;
+            border: solid;
+            max-width: 80px;
+        }
+        
+        #data {
+            cursor: pointer;
+            border: solid;
+            max-width: 140px;
+        }
+        
+        thead {
+            display: flexbox;
+            float: left;
+        }
+        
+        table {
+            margin: 30px 0;
+            width: 20px;
+        }
+        
+        th,
+        td {
+            border: 2px solid #000;
+            padding: 7px 30px;
+            font-size-adjust: initial;
+            empty-cells: inherit;
+        }
